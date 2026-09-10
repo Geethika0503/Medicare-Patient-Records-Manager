@@ -21,7 +21,12 @@ def clean_name(raw_name: str) -> str:
     Raise InvalidRecordError("name is missing") if the result is empty.
     """
     # TODO 1: strip spaces, apply .title(), handle the empty case
-    raise NotImplementedError
+    value = raw_name.strip()
+
+if not value:
+    raise InvalidRecordError("name is missing")
+
+return value.title()
 
 
 def parse_age(raw_age: str) -> int:
@@ -31,7 +36,15 @@ def parse_age(raw_age: str) -> int:
     HINT: wrap int(...) in try/except ValueError.
     """
     # TODO 2
-    raise NotImplementedError
+   try:
+    age = int(raw_age.strip())
+except (ValueError, AttributeError):
+    raise InvalidRecordError("age must be a number")
+
+if age < 1 or age > 120:
+    raise InvalidRecordError("age must be between 1 and 120")
+
+return age
 
 
 def parse_fee(raw_fee: str) -> float:
@@ -41,7 +54,15 @@ def parse_fee(raw_fee: str) -> float:
     negative values with InvalidRecordError.
     """
     # TODO 3
-    raise NotImplementedError
+ try:
+    fee = float(raw_fee.strip().replace(",", ""))
+except (ValueError, AttributeError):
+    raise InvalidRecordError("fee must be a number")
+
+if fee < 0:
+    raise InvalidRecordError("fee must be non-negative")
+
+return fee
 
 
 def clean_department(raw_dept: str, default: str = "General") -> str:
@@ -51,4 +72,6 @@ def clean_department(raw_dept: str, default: str = "General") -> str:
     clinic's rule is to file such visits under General.
     """
     # TODO 4 (two lines are enough)
-    raise NotImplementedError
+   raw_dept = raw_dept.strip()
+
+return raw_dept.title() if raw_dept else default

@@ -21,10 +21,22 @@ def load_patients(csv_path: Path) -> tuple[list[Patient], list[str]]:
     patients: list[Patient] = []
     errors: list[str] = []
     seen_ids: set[str] = set()
+with csv_path.open("r", newline="", encoding="utf-8") as f:
+    reader = csv.DictReader(f)
 
-    # TODO 10: open the file, loop rows, build Patients via
-    # Patient.from_csv_row, apply the two rules above.
-    raise NotImplementedError
+    for line_no, row in enumerate(reader, start=2):
+        patient_id = row["patient_id"].strip()
+
+        if patient_id in seen_ids:
+            errors.append(f"line {line_no}: duplicate patient_id '{patient_id}'")
+            continue
+
+        try:
+            patient = Patient.from_csv_row(row)
+            patients.append(patient)
+            seen_ids.add(patient_id)
+        except InvalidRecordError as e:
+            errors.append(f"line {line_no}: {e}")
 
     return patients, errors
 

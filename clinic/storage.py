@@ -47,19 +47,53 @@ def write_clean_json(patients: list[Patient], out_path: Path) -> None:
     HINT: out_path.parent.mkdir(exist_ok=True) creates reports/ if
     needed; use p.to_dict() for every patient.
     """
-    # TODO 11
-    raise NotImplementedError
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    data = [p.to_dict() for p in patients]
+
+    with out_path.open("w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
 
 
-def write_summary(patients: list[Patient], errors: list[str],
-                  out_path: Path) -> dict:
+def write_summary(
+    patients: list[Patient],
+    errors: list[str],
+    out_path: Path
+) -> dict:
     """Compute the business summary, save it as JSON, and return it.
 
     The summary dict must contain:
-      valid_records          how many clean patients
-      rejected_rows          how many error messages
-      total_revenue          sum of all fees, rounded to 2 decimals
-      revenue_by_department  {department: rounded total}
+        valid_records
+        rejected_rows
+        total_revenue
+        revenue_by_department
     """
-    # TODO 12
-    raise NotImplementedError
+
+    revenue_by_department = {}
+
+    for patient in patients:
+        department = patient.department
+        revenue_by_department[department] = (
+            revenue_by_department.get(department, 0)
+            + patient.consultation_fee
+        )
+
+    summary = {
+        "valid_records": len(patients),
+        "rejected_rows": len(errors),
+        "total_revenue": round(
+            sum(p.consultation_fee for p in patients), 2
+        ),
+        "revenue_by_department": {
+            department: round(total, 2)
+            for department, total in revenue_by_department.items()
+        },
+    }
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with out_path.open("w", encoding="utf-8") as f:
+        json.dump(summary, f, indent=2)
+
+    return summary

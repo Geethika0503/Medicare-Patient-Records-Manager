@@ -4,7 +4,7 @@ import csv
 import json
 from pathlib import Path
 
-from clinic.models import Patient
+from clinic.models import Patient;
 from clinic.validators import InvalidRecordError
 
 

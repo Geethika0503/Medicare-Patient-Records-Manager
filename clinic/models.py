@@ -11,24 +11,26 @@ from clinic import validators
 
 class Patient:
     """One validated patient visit record."""
-
-    def __init__(self, patient_id: str, name: str, age: int,
-                 department: str, consultation_fee: float, visit_date: str):
-        # TODO 5: store all six values on self.
-        # Assign consultation_fee normally — it must go through the setter.
-        raise NotImplementedError
+   
+   def __init__(self, patient_id: str, name: str, age: int,
+             department: str, consultation_fee: float, visit_date: str):
+    self.patient_id = patient_id
+    self.name = name
+    self.age = age
+    self.department = department
+    self.consultation_fee = consultation_fee
+    self.visit_date = visit_date
 
     # ----- encapsulation: a guarded attribute -----
-    @property
-    def consultation_fee(self) -> float:
-        # TODO 6: return the private attribute self._consultation_fee
-        raise NotImplementedError
+   @property
+def consultation_fee(self) -> float:
+    return self._consultation_fee
 
-    @consultation_fee.setter
-    def consultation_fee(self, value: float):
-        # TODO 7: raise ValueError if value < 0, else store it
-        # in self._consultation_fee
-        raise NotImplementedError
+  @consultation_fee.setter
+def consultation_fee(self, value: float):
+    if value < 0:
+        raise ValueError("consultation_fee cannot be negative")
+    self._consultation_fee = value
 
     # ----- factory: build a Patient from one raw CSV row (a dict) -----
     @classmethod
@@ -39,13 +41,25 @@ class Patient:
         .strip() is enough for patient_id and visit_date.
         Let InvalidRecordError bubble up to the caller (storage handles it).
         """
-        # TODO 8: return cls(...) with all six cleaned values
-        raise NotImplementedError
+       return cls(
+    patient_id=row["patient_id"].strip(),
+    name=validators.clean_name(row["name"]),
+    age=validators.parse_age(row["age"]),
+    department=validators.clean_department(row["department"]),
+    consultation_fee=validators.parse_fee(row["consultation_fee"]),
+    visit_date=row["visit_date"].strip()
+)
 
     def to_dict(self) -> dict:
         """Return a plain dict — the shape JSON and CSV writers need."""
-        # TODO 9: six keys matching the CSV header names
-        raise NotImplementedError
+      return {
+    "patient_id": self.patient_id,
+    "name": self.name,
+    "age": self.age,
+    "department": self.department,
+    "consultation_fee": self.consultation_fee,
+    "visit_date": self.visit_date
+}
 
     def __repr__(self) -> str:
         return f"Patient({self.patient_id}, {self.name}, {self.department})"

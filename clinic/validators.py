@@ -6,6 +6,7 @@ InvalidRecordError explaining what is wrong.
 (Module 4 functions + Module 9 exceptions, working together.)
 """
 
+from datetime import datetime
 
 class InvalidRecordError(Exception):
     """Raised when a patient row cannot be repaired safely."""
@@ -72,6 +73,19 @@ def clean_department(raw_dept: str, default: str = "General") -> str:
     clinic's rule is to file such visits under General.
     """
     # TODO 4 (two lines are enough)
-   raw_dept = raw_dept.strip()
+    raw_dept = raw_dept.strip()
+    return raw_dept.title() if raw_dept else default
 
-return raw_dept.title() if raw_dept else default
+
+def parse_visit_date(raw_date: str) -> str:
+    """Validate a visit date in YYYY-MM-DD format."""
+    value = raw_date.strip()
+
+    try:
+        datetime.strptime(value, "%Y-%m-%d")
+    except ValueError:
+        raise InvalidRecordError(
+            "visit_date must be a valid date in YYYY-MM-DD format"
+        )
+
+    return value

@@ -47,7 +47,7 @@ def consultation_fee(self, value: float):
     age=validators.parse_age(row["age"]),
     department=validators.clean_department(row["department"]),
     consultation_fee=validators.parse_fee(row["consultation_fee"]),
-    visit_date=row["visit_date"].strip()
+    visit_date=validators.parse_visit_date(row["visit_date"])
 )
 
     def to_dict(self) -> dict:

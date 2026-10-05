@@ -36,28 +36,6 @@ medicare-records-starter/
     └── summary_report.json
 ```
 
-## How to Run the Project
-
-### 1. Clone the repository
-
-```bash
-git clone <your-repository-url>
-```
-
-### 2. Open the project folder
-
-```bash
-cd medicare-records-starter
-```
-
-### 3. Run the application
-
-```bash
-python main.py
-```
-
-The application will start and display the available options.
-
 ## How It Works
 
 The project stores patient information in JSON format. The Python files handle the main application logic and storage operations.

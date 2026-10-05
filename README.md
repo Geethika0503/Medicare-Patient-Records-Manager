@@ -1,58 +1,101 @@
 # MediCare Patient Records Manager — Student Starter
 
-**The business problem:** MediCare Clinic's reception exports a weekly
-`patients_raw.csv`. It is messy — bad ages, missing fees, duplicate rows,
-inconsistent names. The clinic needs the data validated, stored cleanly,
-and summarised into revenue reports. Your program is the solution.
+MediCare Patient Records Manager is a simple Python-based application for managing patient information and generating basic patient summary reports.
 
-## Project structure
+The project is designed to make it easier to store, update, view, and manage patient records in an organized way.
 
-```
+## Features
+
+* Add new patient records
+* View patient information
+* Update existing patient records
+* Manage patient data using JSON files
+* Generate patient reports
+* Generate summary reports
+* Simple and beginner-friendly Python project
+* Uses file-based storage instead of a database
+
+## Technologies Used
+
+* Python
+* JSON
+* Object-Oriented Programming
+* File Handling
+
+## Project Structure
+
+```text
 medicare-records-starter/
-    .venv/                  <- you create this (see setup guide)
-    main.py                 <- COMPLETE, read it first, do not edit
-    requirements.txt        <- pip install -r requirements.txt
-    data/patients_raw.csv   <- the messy input (do not fix by hand!)
-    reports/                <- your program creates this folder
-    clinic/                 <- the package YOU complete
-        __init__.py
-        validators.py       <- TODOs 1-4  (functions + exceptions)
-        models.py           <- TODOs 5-9  (Patient class)
-        storage.py          <- TODOs 10-12 (CSV in, JSON out)
+│
+├── main.py
+├── storage.py
+├── README.md
+├── patients.json
+└── reports/
+    ├── patient_report.json
+    └── summary_report.json
 ```
 
-## Setup (once)
+## How to Run the Project
 
-1. Open this folder in VS Code (File > Open Folder).
-2. Create and activate a virtual environment, then install requirements —
-   full commands are in the setup guide.
-3. Select the `.venv` interpreter in VS Code (bottom-right corner).
+### 1. Clone the repository
 
-## Suggested order of work
+```bash
+git clone <your-repository-url>
+```
 
-1. **validators.py** (TODOs 1–4). Test each function in the terminal:
-   `python -c "from clinic.validators import clean_name; print(clean_name('  priya sharma '))"`
-2. **models.py** (TODOs 5–9). Self-test: `python -m clinic.models`
-3. **storage.py** (TODOs 10–12).
-4. Run the whole program: `python main.py`
+### 2. Open the project folder
 
-## Definition of done
+```bash
+cd medicare-records-starter
+```
 
-- [ ] `python main.py` runs without crashing
-- [ ] The table shows exactly **7 valid patients**
-- [ ] Exactly **3 rejected rows**, each with a clear reason
-      (bad age, missing fee, duplicate id)
-- [ ] Total revenue printed: **INR 7,130.75**
-- [ ] `reports/patients_clean.json` and `reports/summary.json` exist
-      and open as valid JSON
-- [ ] Setting a negative fee (`p.consultation_fee = -5`) raises ValueError
-- [ ] `python -m clinic.models` prints the self-test line;
-      importing it from main.py does NOT
+### 3. Run the application
 
-## Stretch goals (optional, great for your portfolio)
+```bash
+python main.py
+```
 
-- Add `parse_visit_date` in validators using `datetime.strptime`,
-  rejecting impossible dates.
-- Add a `--department Cardiology` filter using `sys.argv`.
-- Write rejected rows to `reports/rejected.csv` with a `reason` column.
-- Swap `tabulate` for the `rich` library and add colour.
+The application will start and display the available options.
+
+## How It Works
+
+The project stores patient information in JSON format. The Python files handle the main application logic and storage operations.
+
+When the program is executed, users can manage patient records and generate reports based on the stored information.
+
+## Reports
+
+The project can generate:
+
+* Individual patient reports
+* Patient summary reports
+
+These reports are stored as JSON files and can be viewed later.
+
+## Learning Outcomes
+
+Through this project, I learned:
+
+* Python file handling
+* Working with JSON data
+* Creating and managing functions
+* Basic Object-Oriented Programming
+* Organizing a Python project
+* Reading and writing structured data
+* Generating simple reports
+
+## Future Improvements
+
+Some possible improvements for the project are:
+
+* Add a graphical user interface
+* Use a database such as SQLite or MySQL
+* Add user login and authentication
+* Add search and filtering options
+* Improve report generation
+* Add better input validation
+
+## Disclaimer
+
+This project is created for learning and demonstration purposes. It is not intended to replace professional healthcare or medical record management systems.

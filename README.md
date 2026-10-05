@@ -95,7 +95,3 @@ Some possible improvements for the project are:
 * Add search and filtering options
 * Improve report generation
 * Add better input validation
-
-## Disclaimer
-
-This project is created for learning and demonstration purposes. It is not intended to replace professional healthcare or medical record management systems.
